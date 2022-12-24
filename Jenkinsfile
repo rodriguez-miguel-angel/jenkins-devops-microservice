@@ -1,3 +1,4 @@
+// SCRIPTED PIPELINES. OLD APPROACH.
 node {
 	stage('Build') {
 		echo "Build"
