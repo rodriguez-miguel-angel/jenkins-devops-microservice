@@ -31,6 +31,18 @@ pipeline {
 				echo "Integration Test"
 			}	
 		}
+	} 
+	
+	post {
+		always {
+			echo "Soy chingon. This runs always."
+		}
+		success {
+			echo "Soy chingon. This runs when the run is successful."
+		}
+		failure {
+			echo "Soy chingon. This runs when the run fails."
+		}
 	}
 	
 }
