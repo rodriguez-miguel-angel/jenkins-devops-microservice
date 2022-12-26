@@ -47,7 +47,7 @@ pipeline {
 				echo "BUILD_URL - $env.BUILD_URL"
 			}
 		}
-		stage('Build / Compile') {
+		stage('Compile') {
 			steps {
 				sh "mvn clean compile"
 			}
@@ -63,6 +63,31 @@ pipeline {
 				echo "Integration Test"
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}	
+		}
+		stage('Package') {
+			steps {
+				echo "Create jar file"
+				sh "mvn package -DskipTests"
+			}	
+		}
+		stage('Build Docker Image') {
+			steps {
+				// version-a: declarative version.
+				// "docker build -t redscare/currency-exchange-devops:$env.BUILD_TAG"
+				script {
+					dockerImage = docker.build("redscare/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+			}
+		}
+		stage('Push Docker Image') {
+			steps {
+				script {
+					docker.withRegistry('', 'DockerHub') {
+						dockerImage.push();
+						dockerImage.push('latest');
+					}
+				}
+			}
 		}
 	} 
 	
