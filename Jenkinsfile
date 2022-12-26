@@ -20,18 +20,24 @@ pipeline {
 	agent {
 		docker {
 			// version-a:
-			// image 'maven:3.6.3'
+			image 'maven:3.6.3'
 			// version-b:
-			image 'node:13.8'
+			// image 'node:13.8'
 		}
+	}
+	environment {
+		dockerHome = tool 'Udemy-Docker'
+		mavenHome = tool 'Udemy-Maven'
+		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
 	}
 	stages {
 		stage('Build') {
 			steps {
+				sh 'docker version'
 				// version-a:
-				// sh 'mvn --version'
+				sh 'mvn --version'
 				// version-b:
-				sh 'node --version'
+				// sh 'node --version'
 				echo "Build"
 				echo "PATH - $PATH"
 				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
