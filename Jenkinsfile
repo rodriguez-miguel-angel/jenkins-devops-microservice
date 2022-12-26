@@ -15,16 +15,16 @@
 // DECLARATIVE PIPELINES. NEWER APPROACH.
 pipeline {
 	// version-01:
-	// agent any
+	agent any
 	// version-02:
-	agent {
-		docker {
+	// agent {
+		// docker {
 			// version-a:
-			image 'maven:3.6.3'
+			// image 'maven:3.6.3'
 			// version-b:
 			// image 'node:13.8'
-		}
-	}
+		// }
+	// }
 	environment {
 		dockerHome = tool 'Udemy-Docker'
 		mavenHome = tool 'Udemy-Maven'
